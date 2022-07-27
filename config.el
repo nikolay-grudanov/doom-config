@@ -98,7 +98,8 @@
 ;; Для запуска в полный экран при старте
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
-;; Для отладки на питоне
+;; TODO Описать все настройки для питона в отдельном файле
+;;Для отладки на питоне
 (after! dap-mode
   (setq dap-python-debugger 'debugpy))
 ;; Пакет для дебага питона
@@ -112,6 +113,22 @@
 (advice-add 'evil-yank :around 'meain/evil-yank-advice)
 ;; Меняю лого на начальном экране
 (setq +doom-dashboard-banner-file "/Users/nikolajgrudanov/.doom.d/doom-emacs-dash.png")
-
+;; Делаем буфер более красивым
 (setq doom-fallback-buffer-name "► Doom"
       +doom-dashboard-name "► Doom")
+;; Проверка синтаксиса
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+
+(eval-after-load "flyspell"
+  '(progn
+     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+     (define-key flyspell-mouse-map [mouse-3] #'undefined)))
+
+(after! flyspell
+  (setq flyspell-lazy-idle-seconds 1))
+;; Для работы с русской раскладкой
+(use-package reverse-im
+  :config
+  (reverse-im-activate "russian-computer"))
+;;;
