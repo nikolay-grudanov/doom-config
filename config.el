@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type "relative")
+;; (setq display-line-numbers-type "relative")
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -88,16 +88,14 @@
 (setq-default line-spacing 4)
 ;; Относительная нумерация
 (setq display-line-numbers-type 'relative)
-;; Установка щрифтов
+ ;; Установка щрифтов
 (setq doom-font (font-spec :family "JetBrains Mono"  )
       doom-big-font (font-spec :family "JetBrains Mono"  )
-      doom-unicode-font (font-spec :family "Hack Nerd Font Mono"  )
+      doom-unicode-font (font-spec :family "Noto Sans Symbols 2" )
+      doom-unicode-font (font-spec :family "Hack Nerd Font Mono" )
       ;; doom-variable-pitch-font (font-spec :family "all-the-icons" )
       ;; doom-serif-font (font-spec :family "all-the-icons" )
 )
-;; Для запуска в полный экран при старте
-(custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
 ;; TODO Описать все настройки для питона в отдельном файле
 ;;Для отладки на питоне
 (after! dap-mode
@@ -131,4 +129,15 @@
 (use-package reverse-im
   :config
   (reverse-im-activate "russian-computer"))
-;;;
+;;
+(show-paren-mode 2)
+;;
+;; Делаем выделение более красивым и заметным
+(set-face-attribute 'region nil :background "#44475a" :foreground "#8be9fd")
+;; Иконки
+(use-package all-the-icons
+  :if (display-graphic-p))
+;; Вкладки
+(load! "tabs" doom-private-dir)
+;;
+(define-key evil-normal-state-map (kbd "SPC o =") 'ranger)
